@@ -90,58 +90,91 @@
             </div>
 
             <!-- Latest Orders -->
-            <div class="bg-white dark:bg-zinc-800 overflow-hidden shadow-sm rounded-xl border border-gray-100 dark:border-zinc-700 mb-8">
-                <div class="p-6 border-b border-gray-100 dark:border-zinc-700 flex items-center justify-between">
-                    <h2 class="text-lg font-bold text-gray-900 dark:text-white">Latest Orders</h2>
-                    <a href="{{ route('admin.orders.index') }}" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg transition-colors shadow-sm">
-                        View All
-                    </a>
-                </div>
-                <div class="overflow-x-auto">
-                    <table class="min-w-full divide-y divide-gray-200 dark:divide-zinc-700">
-                        <thead class="bg-gray-50 dark:bg-zinc-900/50">
-                            <tr>
-                                <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Customer</th>
-                                <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Products</th>
-                                <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Quantity</th>
-                                <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Total</th>
-                            </tr>
-                        </thead>
-                        <tbody class="bg-white dark:bg-zinc-800 divide-y divide-gray-200 dark:divide-zinc-700">
-                            @forelse($latestOrders as $order)
-                                @php
-                                    $products = is_string($order->products) ? json_decode($order->products, true) : $order->products;
-                                    $itemCount = collect($products)->sum('quantity');
-                                @endphp
-                            <tr class="hover:bg-gray-50 dark:hover:bg-zinc-700/50 transition-colors">
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-sm font-medium text-gray-900 dark:text-white">
-                                        {{ $order->user_name ?? $order->customer_name ?? 'Guest' }}
+<div class="bg-white dark:bg-zinc-800 overflow-hidden shadow-sm rounded-xl border border-gray-100 dark:border-zinc-700 mb-8">
+    <div class="p-6 border-b border-gray-100 dark:border-zinc-700 flex items-center justify-between">
+        <h2 class="text-lg font-bold text-gray-900 dark:text-white">Latest Orders</h2>
+        <a href="{{ route('admin.orders.index') }}"
+           class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg transition-colors shadow-sm">
+            View All
+        </a>
+    </div>
+
+    <div class="overflow-x-auto">
+        <table class="min-w-full divide-y divide-gray-200 dark:divide-zinc-700">
+            <thead class="bg-gray-50 dark:bg-zinc-900/50">
+                <tr>
+                    <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">
+                        Customer
+                    </th>
+                    <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">
+                        Products
+                    </th>
+                    <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">
+                        Quantity
+                    </th>
+                    <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">
+                        Total
+                    </th>
+                </tr>
+            </thead>
+
+            <tbody class="bg-white dark:bg-zinc-800 divide-y divide-gray-200 dark:divide-zinc-700">
+                @forelse($latestOrders as $order)
+                    @php
+                        $products = is_string($order->products)
+                            ? json_decode($order->products, true)
+                            : $order->products;
+                    @endphp
+
+                    <tr class="hover:bg-gray-50 dark:hover:bg-zinc-700/50 transition-colors">
+
+                        <!-- Customer -->
+                        <td class="px-6 py-4 align-top">
+                            <div class="text-sm font-medium text-gray-900 dark:text-white">
+                                {{ $order->user_name ?? $order->customer_name ?? 'Guest' }}
+                            </div>
+                        </td>
+
+                        <!-- Products (STACKED) -->
+                        <td class="px-6 py-4 align-top text-sm">
+                            <div class="space-y-1">
+                                @foreach($products as $product)
+                                    <div class="text-gray-900 dark:text-gray-300 break-words">
+                                        {{ $product['name'] ?? 'Unknown Product' }}
                                     </div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
-                                    <div class="space-y-1">
-                                        @foreach($products as $product)
-                                            <div class="text-sm text-gray-900 dark:text-gray-300">{{ $product['name'] ?? 'Unknown Product' }}</div>
-                                        @endforeach
+                                @endforeach
+                            </div>
+                        </td>
+
+                        <!-- Quantity (STACKED & ALIGNED) -->
+                        <td class="px-6 py-4 align-top text-sm">
+                            <div class="space-y-1">
+                                @foreach($products as $product)
+                                    <div class="text-gray-500 dark:text-gray-400">
+                                        {{ $product['quantity'] ?? 0 }}
                                     </div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
-                                    {{ $itemCount }}
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">
-                                    {{ number_format($order->total_amount, 2) }}
-                                </td>
-                            </tr>
-                            @empty
-                            <tr>
-                                <td colspan="4" class="px-6 py-8 text-center text-gray-500 dark:text-gray-400">No orders found.</td>
-                            </tr>
-                            @endforelse
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+                                @endforeach
+                            </div>
+                        </td>
+
+                        <!-- Total -->
+                        <td class="px-6 py-4 align-top whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">
+                            {{ number_format($order->total_amount, 2) }}
+                        </td>
+
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="4" class="px-6 py-8 text-center text-gray-500 dark:text-gray-400">
+                            No orders found.
+                        </td>
+                    </tr>
+                @endforelse
+            </tbody>
+        </table>
+    </div>
+</div>
+
 
             <!-- Latest Customers -->
             <div class="bg-white dark:bg-zinc-800 overflow-hidden shadow-sm rounded-xl border border-gray-100 dark:border-zinc-700 mb-8">
