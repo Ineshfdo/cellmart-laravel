@@ -5,13 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use App\Models\Products;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth; // <-- Import Auth facade
 
 class CheckoutController extends Controller
 {
     public function index()
     {
         $cart = session()->get('cart', []);
-        
         if (empty($cart)) {
             return redirect()->route('products.index')->with('error', 'Your cart is empty!');
         }
@@ -19,26 +19,22 @@ class CheckoutController extends Controller
         $cartItems = [];
         $total = 0;
 
-        foreach ($cart as $key => $item) {
-            if (is_array($item) && isset($item['product_id'])) {
-                $product = Products::find($item['product_id']);
-                if ($product) {
-                    $subtotal = $product->price * $item['quantity'];
-                    $cartItems[] = [
-                        'product' => $product,
-                        'quantity' => $item['quantity'],
-                        'color' => $item['color'],
-                        'warranty' => $item['warranty'],
-                        'subtotal' => $subtotal
-                    ];
-                    $total += $subtotal;
-                }
+        foreach ($cart as $item) {
+            $product = Products::find($item['product_id'] ?? 0);
+            if ($product) {
+                $subtotal = $product->price * ($item['quantity'] ?? 1);
+                $cartItems[] = [
+                    'product' => $product,
+                    'quantity' => $item['quantity'] ?? 1,
+                    'color' => $item['color'] ?? null,
+                    'warranty' => $item['warranty'] ?? null,
+                    'subtotal' => $subtotal
+                ];
+                $total += $subtotal;
             }
         }
 
-        // Get authenticated user data for auto-filling the form
-        $user = auth()->user();
-
+        $user = Auth::user(); // <-- Safe now
         return view('Pages.checkout.index', compact('cartItems', 'total', 'user'));
     }
 
@@ -52,7 +48,6 @@ class CheckoutController extends Controller
         ]);
 
         $cart = session()->get('cart', []);
-        
         if (empty($cart)) {
             return redirect()->route('products.index')->with('error', 'Your cart is empty!');
         }
@@ -60,32 +55,32 @@ class CheckoutController extends Controller
         $orderProducts = [];
         $total = 0;
 
-        foreach ($cart as $key => $item) {
-            if (is_array($item) && isset($item['product_id'])) {
-                $product = Products::find($item['product_id']);
-                if ($product) {
-                    $subtotal = $product->price * $item['quantity'];
-                    $orderProducts[] = [
-                        'product_id' => $product->id,
-                        'name' => $product->name,
-                        'price' => $product->price,
-                        'quantity' => $item['quantity'],
-                        'color' => $item['color'],
-                        'warranty' => $item['warranty'],
-                        'subtotal' => $subtotal,
-                        'image' => $product->image,
-                        'currency' => $product->currency
-                    ];
-                    $total += $subtotal;
-                }
+        foreach ($cart as $item) {
+            $product = Products::find($item['product_id'] ?? 0);
+            if ($product) {
+                $subtotal = $product->price * ($item['quantity'] ?? 1);
+                $orderProducts[] = [
+                    'product_id' => $product->id,
+                    'name' => $product->name,
+                    'price' => $product->price,
+                    'quantity' => $item['quantity'] ?? 1,
+                    'color' => $item['color'] ?? null,
+                    'warranty' => $item['warranty'] ?? null,
+                    'subtotal' => $subtotal,
+                    'image' => $product->image,
+                    'currency' => $product->currency
+                ];
+                $total += $subtotal;
             }
         }
 
+        $user = Auth::user(); // <-- Safe now
+
         $order = Order::create([
-            'user_id' => auth()->id(), // Link order to logged-in user
-            'customer_name' => $request->customer_name,
-            'customer_email' => $request->customer_email,
-            'customer_phone' => $request->customer_phone,
+            'user_id' => $user?->id,
+            'customer_name' => $request->customer_name ?? $user?->name,
+            'customer_email' => $request->customer_email ?? $user?->email,
+            'customer_phone' => $request->customer_phone ?? $user?->phone ?? null,
             'delivery_address' => $request->delivery_address,
             'products' => $orderProducts,
             'total_amount' => $total,
@@ -93,7 +88,6 @@ class CheckoutController extends Controller
             'status' => 'pending'
         ]);
 
-        // Clear the cart
         session()->forget('cart');
 
         return redirect()->route('checkout.success', $order->id);
