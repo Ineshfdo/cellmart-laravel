@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-app-layout title="Create Product">
     <div class="flex h-full w-full flex-1 flex-col gap-8 p-8 bg-gray-50 dark:bg-zinc-900 overflow-y-auto">
         
         <!-- Header -->
