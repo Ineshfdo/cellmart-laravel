@@ -26,7 +26,7 @@
                 <div class="p-6 sm:px-20 bg-white border-b border-gray-200">
 
                     <!-- Fully Prevent Horizontal Scroll -->
-                    <div class="overflow-x-hidden w-full">
+                    <div class="overflow-x-auto w-full">
 
                         <table class="min-w-full divide-y divide-gray-200 table-fixed">
                             <thead class="bg-gray-50">
