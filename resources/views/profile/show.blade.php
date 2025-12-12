@@ -42,4 +42,17 @@
             @endif
         </div>
     </div>
+    </div>
+
+    @push('scripts')
+    <script>
+        document.addEventListener('livewire:initialized', () => {
+            Livewire.on('saved', (event) => {
+                setTimeout(() => {
+                    window.location.href = "{{ Auth::user()->type === 'admin' ? route('dashboard') : route('home') }}";
+                }, 1000); // Small delay to let the user see the "Saved" message
+            });
+        });
+    </script>
+    @endpush
 </x-app-layout>
