@@ -51,7 +51,7 @@ class DashboardController extends Controller
         $acceptedOrdersCount = DB::table('accepted_orders')->count();
         $acceptedOrdersTotal = DB::table('accepted_orders')->sum('total_amount');
 
-        return view('dashboard', compact(
+        return view('admin.dashboard', compact(
             'totalProducts',
             'totalCustomers',
             'totalOrders',
