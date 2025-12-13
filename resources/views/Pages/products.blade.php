@@ -110,38 +110,58 @@
                 @if($products->count() > 0)
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
                         @foreach($products as $product)
-                            <a href="{{ route('products.show', $product->id) }}" class="block h-full group">
-                                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-all duration-300 h-full flex flex-col">
+                            <a href="{{ route('products.show', $product->id) }}" class="block h-full">
+                                <div class="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 h-full flex flex-col max-w-xs mx-auto w-full">
                                     
                                     <!-- Product Image -->
-                                    <div class="w-full h-64 bg-white p-6 flex items-center justify-center relative">
+                                    <div class="w-full h-64 bg-gray-50 p-4">
                                         <img 
                                             src="{{ asset($product->image) }}" 
                                             alt="{{ $product->name }}" 
-                                            class="max-w-full max-h-full object-contain group-hover:scale-105 transition-transform duration-300"
+                                            class="w-full h-full object-contain mix-blend-multiply"
                                             onerror="this.src='{{ asset('images/no-image.png') }}'"
                                         >
                                     </div>
 
                                     <!-- Product Info -->
-                                    <div class="p-5 flex-grow flex flex-col">
+                                    <div class="p-5 flex-grow flex flex-col text-center">
                                         <div class="mb-2">
-                                            <span class="text-xs font-semibold tracking-wide text-gray-500 uppercase">
+                                            <span class="text-xs font-semibold tracking-wider text-blue-600 uppercase bg-blue-50 px-2 py-1 rounded-full">
                                                 {{ $product->subcategory ?? $product->category }}
                                             </span>
                                         </div>
 
-                                        <h3 class="text-base font-medium text-gray-900 line-clamp-2 mb-2 flex-grow group-hover:text-blue-600 transition-colors">
+                                        <h3 class="text-lg font-bold text-gray-900 line-clamp-2 mb-2 flex-grow">
                                             {{ $product->name }}
                                         </h3>
 
-                                        <div class="mt-4 flex items-end justify-between">
-                                            <p class="text-lg font-bold text-gray-900">
-                                                <span class="text-sm font-normal text-gray-500 mr-0.5">
+                                        <div class="mt-auto">
+                                            <p class="text-xl font-bold text-gray-900 mb-2">
+                                                <span class="text-sm font-normal text-gray-500 relative top-0.1 mr-0.5">
                                                     {{ $product->currency }}
                                                 </span>
                                                 {{ number_format($product->price) }}
                                             </p>
+
+                                            @if($product->ram || $product->storage)
+                                                <div class="flex items-center justify-center gap-2 text-xs text-gray-500 border-t border-gray-100 pt-3">
+                                                    @if($product->ram)
+                                                        <span class="flex items-center gap-1">
+                                                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path></svg>
+                                                            {{ $product->ram }}
+                                                        </span>
+                                                    @endif
+                                                    @if($product->ram && $product->storage)
+                                                        <span class="text-gray-300">|</span>
+                                                    @endif
+                                                    @if($product->storage)
+                                                        <span class="flex items-center gap-1">
+                                                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path></svg>
+                                                            {{ $product->storage }}
+                                                        </span>
+                                                    @endif
+                                                </div>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
