@@ -82,7 +82,7 @@
                             @forelse($latestProducts as $product)
                             <tr class="hover:bg-gray-50 dark:hover:bg-zinc-700/50 transition-colors">
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">{{ $product->name }}</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">{{ $product->category }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">{{ $product->subcategory }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white font-medium">{{ number_format($product->price, 2) }}</td>
                             </tr>
                             @empty
