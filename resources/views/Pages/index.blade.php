@@ -86,29 +86,6 @@
   </div>
 </div>
 
-
-<div class="w-full flex flex-col items-center text-center px-4 py-10 bg-gray-50 pt-16 pb-8 border-t">
-
-    <!-- Title -->
-    <h1 class="text-xl md:text-3xl font-semibold text-gray-800 mb-6 tracking-wide">
-        Explore Our New Mobile Phones Collection
-    </h1>
-
-    <!-- Image Container -->
-    <div class="w-full max-w-4xl rounded-xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-[1.01]">
-        <img src="../Images/allphones.webp" 
-             alt="Mobile Phones Collection"
-             class="w-full h-64 md:h-[420px] object-cover">
-    </div>
-
-    <!-- Button -->
-    <a href="{{ route('products.index') }}"
-   class="mt-8 inline-flex items-center gap-2 bg-gray-900 text-white px-8 py-3 rounded-full shadow-md 
-          hover:bg-black hover:shadow-xl hover:scale-105 transition-all duration-300">
-    Browse Phones 
-    <span class="text-lg">→</span>
-</a>
-</div>
 <div class="w-full bg-gray-50 pt-16 pb-8 border-t border-gray-200 py-16">
   <div class="max-w-5xl mx-auto text-center px-4">
     
@@ -191,5 +168,29 @@
     </div>
   </div>
 </div>
+
+<div class="w-full flex flex-col items-center text-center px-4 py-10 bg-gray-50 border-t">
+
+    <!-- Title -->
+    <h1 class="text-2xl md:text-3xl font-semibold text-gray-800 mb-6">
+        Explore Our New Mobile Phones Collection
+    </h1>
+
+    <!-- Image -->
+    <div class="w-full max-w-4xl rounded-xl overflow-hidden hover: transition-all duration-300 transform hover:scale-[1.01]">
+        <img src="../Images/allphones.webp" 
+             alt="Mobile Phones Collection"
+             class="w-full h-64 md:h-[420px] object-cover">
+    </div>
+
+    <!-- Button -->
+    <a href="{{ route('products.index') }}" 
+       class="mt-8 inline-flex items-center gap-2 bg-gray-900 text-white px-6 py-3 rounded-full">
+        Browse Phones <span class="text-lg">→</span>
+    </a>
+
+</div>
+
+
 
 @endsection
