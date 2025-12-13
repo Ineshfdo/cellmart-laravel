@@ -5,50 +5,15 @@
 @section('content')
 <div class="relative w-full bg-black overflow-hidden">
     <div class="relative w-full mx-auto">
-        <video 
+        <img
+            src="{{ asset('images/insidestore.jpg') }}"
+            alt="iPhone 17 Series Banner"
             class="w-full h-auto object-contain shadow-2xl"
-            autoplay
-            muted
-            playsinline
-            id="heroVideo"
+            loading="eager"
         >
-            <source src="{{ asset('videos/iphone-video.mp4') }}" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-
         <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none"></div>
     </div>
 </div>
-
-
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    const video = document.getElementById('heroVideo');
-    if (!video) return;
-
-    // Check if video already played on this page load
-    const alreadyPlayed = sessionStorage.getItem('home_video_played');
-
-    if (!alreadyPlayed) {
-        // Play video once
-        video.play().catch(err => console.log("Autoplay failed:", err));
-
-        // Mark as played
-        sessionStorage.setItem('home_video_played', '1');
-
-        // Stop looping (make sure it really plays only once)
-        video.addEventListener('ended', () => {
-            video.pause();
-        });
-
-    } else {
-        // Skip video (optional: hide or replace)
-        video.currentTime = video.duration; // Jump to end
-    }
-});
-</script>
-
-
 
 
 
@@ -122,8 +87,7 @@ document.addEventListener('DOMContentLoaded', function () {
 </div>
 
 
-<hr class="border-t border-gray-300 m-0 p-0">
-<div class="w-full flex flex-col items-center text-center px-4 py-10 bg-gradient-to-b from-gray-50 to-white">
+<div class="w-full flex flex-col items-center text-center px-4 py-10 bg-gray-50 pt-16 pb-8 border-t">
 
     <!-- Title -->
     <h1 class="text-xl md:text-3xl font-semibold text-gray-800 mb-6 tracking-wide">
@@ -145,8 +109,7 @@ document.addEventListener('DOMContentLoaded', function () {
     <span class="text-lg">→</span>
 </a>
 </div>
-<hr class="border-t border-gray-300 m-0 p-0">
-<div class="w-full bg-white py-16">
+<div class="w-full bg-gray-50 pt-16 pb-8 border-t border-gray-200 py-16">
   <div class="max-w-5xl mx-auto text-center px-4">
     
     <!-- Small Top Text -->
@@ -228,6 +191,5 @@ document.addEventListener('DOMContentLoaded', function () {
     </div>
   </div>
 </div>
-<hr class="border-t border-gray-200 m-0 p-0">
 
 @endsection

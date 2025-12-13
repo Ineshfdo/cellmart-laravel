@@ -83,9 +83,9 @@
                 <h3 class="text-sm font-bold text-gray-900 uppercase tracking-wider mb-4">Go To</h3>
                 <ul class="space-y-3 text-sm text-gray-600">
                     <li><a href="/" class="hover:text-blue-600 transition-colors">Home</a></li>
-                    <li><a href="#" class="hover:text-blue-600 transition-colors">Products</a></li>
-                    <li><a href="#" class="hover:text-blue-600 transition-colors">About Us</a></li>
-                    <li><a href="#" class="hover:text-blue-600 transition-colors">Contact Us</a></li>
+                    <li><a href="/products" class="hover:text-blue-600 transition-colors">Products</a></li>
+                    <li><a href="/contact" class="hover:text-blue-600 transition-colors">Contact Us</a></li>
+                    <li><a href="/about" class="hover:text-blue-600 transition-colors">About Us</a></li>
                     <li><a href="#" class="hover:text-blue-600 transition-colors">Favorites</a></li>
                 </ul>
             </div>
