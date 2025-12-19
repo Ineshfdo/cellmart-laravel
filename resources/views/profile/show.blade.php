@@ -1,3 +1,4 @@
+@livewire('profile.profile-redirect')
 <x-app-layout title="Profile">
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -43,16 +44,4 @@
         </div>
     </div>
     </div>
-
-    @push('scripts')
-    <script>
-        document.addEventListener('livewire:initialized', () => {
-            Livewire.on('saved', (event) => {
-                setTimeout(() => {
-                    window.location.href = "{{ Auth::user()->type === 'admin' ? route('dashboard') : route('home') }}";
-                }, 1000); // Small delay to let the user see the "Saved" message
-            });
-        });
-    </script>
-    @endpush
 </x-app-layout>
