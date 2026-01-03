@@ -8,6 +8,13 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
+    public function getAll()
+    {
+        return response()->json([
+            'products' => Products::all()
+        ], 200);
+    }
+    
     /**
      * VIEW PRODUCTS (admin + user)
      */

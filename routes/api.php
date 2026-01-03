@@ -14,7 +14,7 @@ use App\Http\Controllers\Api\OrderController;
 */
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
-
+Route::get('/getAllProducts', [ProductController::class, 'getAll']);
 /*
 |--------------------------------------------------------------------------
 | PROTECTED ROUTES (SANCTUM)
