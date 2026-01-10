@@ -33,6 +33,7 @@ Route::middleware('auth:sanctum')->group(function () {
     // Users (ADMIN ONLY)
     Route::delete('/deleteUser/{id}', [UserController::class, 'destroy']);
 
-    // Orders (ADMIN ONLY)
+    // Orders
+    Route::post('/checkout', [OrderController::class, 'store']);
     Route::delete('/deleteOrder/{id}', [OrderController::class, 'destroy']);
 });
