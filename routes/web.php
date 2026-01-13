@@ -23,7 +23,6 @@ Route::get('/', [ProductsController::class, 'index'])->name('home');
 Route::get('/products', [ProductsController::class, 'allProducts'])->name('products.index');
 Route::get('/products/{id}', [ProductsController::class, 'show'])->name('products.show');
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
-Route::post('/feedback', [FeedbackController::class, 'store'])->name('feedback.store');
 Route::get('/about', [AboutController::class, 'index'])->name('about');
 
 /*
@@ -41,13 +40,9 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session')])->group(fun
     
     // Cart Routes
     Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
-    Route::post('/cart/add/{id}', [CartController::class, 'add'])->name('cart.add');
-    Route::post('/cart/update', [CartController::class, 'update'])->name('cart.update');
-    Route::delete('/cart/remove/{key}', [CartController::class, 'remove'])->name('cart.remove')->where('key', '.*');
     
     // Checkout Routes
     Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
-    Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
     Route::get('/checkout/success/{orderId}', [CheckoutController::class, 'success'])->name('checkout.success');
 });
 
@@ -67,24 +62,16 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
         // Product Management
         Route::get('/products', [ProductController::class, 'index'])->name('products.index');
         Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
-        Route::post('/products', [ProductController::class, 'store'])->name('products.store');
+
         Route::get('/products/{id}/edit', [ProductController::class, 'edit'])->name('products.edit');
-        Route::put('/products/{id}', [ProductController::class, 'update'])->name('products.update');
-        Route::delete('/products/{id}', [ProductController::class, 'destroy'])->name('products.destroy');
         
         // Order Management
         Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
-        Route::post('/orders/{id}/accept', [OrderController::class, 'accept'])->name('orders.accept');
-        Route::delete('/orders/{id}', [OrderController::class, 'destroy'])->name('orders.destroy');
         
         // Customer Management
         Route::get('/customers', [CustomerController::class, 'index'])->name('customers.index');
-        Route::delete('/customers/{id}', [CustomerController::class, 'destroy'])->name('customers.destroy');
         
         // User Management
         Route::get('/users', [UserController::class, 'index'])->name('users.index');
-        Route::post('/users/{id}/toggle-type', [UserController::class, 'toggleType'])->name('users.toggleType');
     });
 });
-
-
