@@ -6,6 +6,8 @@ use App\Models\Order;
 use App\Models\Products;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth; // <-- Import Auth facade
+use Illuminate\Support\Facades\Mail;
+use App\Mail\OrderPlaced;
 
 class CheckoutController extends Controller
 {
@@ -152,6 +154,13 @@ class CheckoutController extends Controller
                     // Clear the cart
                     session()->forget('cart');
                     session()->forget('pending_order_id');
+
+                    // Send Order Confirmation Email
+                    try {
+                         Mail::to($order->customer_email)->send(new OrderPlaced($order));
+                    } catch (\Exception $e) {
+                         \Log::error('Order email sending failed: ' . $e->getMessage());
+                    }
                 }
             } catch (\Exception $e) {
                 // Log error but still show success page
