@@ -6,6 +6,7 @@ use App\Http\Controllers\AboutController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\FeedbackController;
+use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\OrderController;
@@ -24,6 +25,10 @@ Route::get('/products', [ProductsController::class, 'allProducts'])->name('produ
 Route::get('/products/{id}', [ProductsController::class, 'show'])->name('products.show');
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::get('/about', [AboutController::class, 'index'])->name('about');
+
+// Google OAuth Routes
+Route::get('/auth/google', [GoogleAuthController::class, 'redirect'])->name('auth.google');
+Route::get('/auth/google/callback', [GoogleAuthController::class, 'callback']);
 
 /*
 |--------------------------------------------------------------------------
