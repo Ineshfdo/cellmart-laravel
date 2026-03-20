@@ -113,7 +113,7 @@
                         <!-- Product Image -->
                         <div class="w-full h-64 bg-gray-50">
                             <img 
-                                src="{{ asset($related->image) }}" 
+                                src="{{ asset(str_replace('Images/', 'images/', ltrim($related->image, '/'))) }}" 
                                 alt="{{ $related->name }}" 
                                 class="w-full h-full object-contain"
                                 onerror="this.src='{{ asset('images/no-image.png') }}'"
