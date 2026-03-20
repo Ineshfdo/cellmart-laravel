@@ -29,7 +29,7 @@ class ProductsController extends Controller
         // Combine all products
         $products = $iphones->concat($samsung)->concat($pixels);
         
-        return view('Pages.index', compact('products')); 
+        return view('pages.index', compact('products')); 
     }
 
     public function show($id)
@@ -53,7 +53,7 @@ class ProductsController extends Controller
              $relatedProducts = $relatedProducts->concat($moreRelated);
         }
         
-        return view('Pages.show', compact('product', 'relatedProducts'));
+        return view('pages.show', compact('product', 'relatedProducts'));
     }
 
     public function allProducts(Request $request)
@@ -93,6 +93,6 @@ class ProductsController extends Controller
                 return $key === 'Mobile Phones' ? 0 : 1;
             });
 
-        return view('Pages.products', compact('products', 'categories'));
+        return view('pages.products', compact('products', 'categories'));
     }
 }

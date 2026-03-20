@@ -32,7 +32,7 @@ class CartController extends Controller
             }
         }
 
-        return view('Pages.cart', compact('cartItems', 'total'));
+        return view('pages.cart', compact('cartItems', 'total'));
     }
 
     public function add(Request $request, $id)
