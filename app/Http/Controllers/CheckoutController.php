@@ -37,7 +37,7 @@ class CheckoutController extends Controller
         }
 
         $user = Auth::user(); // <-- Safe now
-        return view('Pages.checkout.index', compact('cartItems', 'total', 'user'));
+        return view('pages.checkout.index', compact('cartItems', 'total', 'user'));
     }
 
     public function store(Request $request)
@@ -155,9 +155,9 @@ class CheckoutController extends Controller
                     session()->forget('cart');
                     session()->forget('pending_order_id');
 
-                    // Send Order Confirmation Email
+                    // Send Order Confirmation Email (queued to avoid timeout)
                     try {
-                         Mail::to($order->customer_email)->send(new OrderPlaced($order));
+                         Mail::to($order->customer_email)->later(now()->addSeconds(5), new OrderPlaced($order));
                     } catch (\Exception $e) {
                          \Log::error('Order email sending failed: ' . $e->getMessage());
                     }
@@ -168,6 +168,6 @@ class CheckoutController extends Controller
             }
         }
         
-        return view('Pages.checkout.success', compact('order'));
+        return view('pages.checkout.success', compact('order'));
     }
 }
