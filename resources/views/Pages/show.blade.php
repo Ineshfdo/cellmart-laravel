@@ -10,7 +10,7 @@
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-0">
                 <!-- Product Image -->
                 <div class="p-8 lg:p-12 flex items-center justify-center bg-gray-100">
-                    <img src="{{ asset($product->image) }}" 
+                    <img src="{{ asset(str_replace('Images/', 'images/', ltrim($product->image, "/"))) }}" 
                          alt="{{ $product->name }}" 
                          class="max-h-[500px] w-auto object-contain mix-blend-multiply hover:scale-105 transition-transform duration-500"
                          onerror="this.src='{{ asset('images/no-image.png') }}'">

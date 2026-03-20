@@ -29,7 +29,7 @@
                                     <tr class="hover:bg-gray-50 transition-colors">
                                         <td class="px-6 py-6">
                                             <div class="flex items-center gap-4">
-                                                <img src="{{ asset($item['product']->image) }}" 
+                                                <img src="{{ asset(str_replace('Images/', 'images/', ltrim($item['product']->image, "/"))) }}" 
                                                      alt="{{ $item['product']->name }}"
                                                      class="w-20 h-20 object-contain rounded-lg bg-gray-50">
                                                 <div>

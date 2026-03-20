@@ -118,7 +118,7 @@
                     <div class="space-y-4 mb-6">
                         @foreach($cartItems as $item)
                             <div class="flex items-start gap-3 pb-4 border-b border-gray-200">
-                                <img src="{{ asset($item['product']->image) }}" 
+                                <img src="{{ asset(str_replace('Images/', 'images/', ltrim($item['product']->image, "/"))) }}" 
                                      alt="{{ $item['product']->name }}"
                                      class="w-16 h-16 object-contain rounded-lg bg-gray-50">
                                 <div class="flex-1">

@@ -42,7 +42,7 @@
                                         @php
                                             $imageSrc = filter_var($product->image, FILTER_VALIDATE_URL)
                                                 ? $product->image
-                                                : asset($product->image);
+                                                : asset(str_replace('Images/', 'images/', ltrim($product->image, "/")));
                                         @endphp
                                         <img src="{{ $imageSrc }}"
                                              alt="{{ $product->name }}"

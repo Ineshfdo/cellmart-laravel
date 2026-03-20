@@ -66,7 +66,7 @@
                             <tr>
                                 <td class="px-4 py-4">
                                     <div class="flex items-center gap-3">
-                                        <img src="{{ asset($product['image']) }}" 
+                                        <img src="{{ asset(str_replace('Images/', 'images/', ltrim($product['image'], "/"))) }}" 
                                              alt="{{ $product['name'] }}"
                                              class="w-16 h-16 object-contain rounded-lg bg-gray-50">
                                         <span class="font-semibold text-gray-900">{{ $product['name'] }}</span>

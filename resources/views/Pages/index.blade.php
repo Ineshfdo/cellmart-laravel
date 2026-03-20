@@ -32,7 +32,7 @@
           <!-- Product Image -->
           <div class="w-full h-64 bg-gray-50 p-4">
             <img 
-              src="{{ asset($product->image) }}" 
+              src="{{ asset(str_replace('Images/', 'images/', ltrim($product->image, "/"))) }}" 
               alt="{{ $product->name }}" 
               class="w-full h-full object-contain mix-blend-multiply"
               onerror="this.src='{{ asset('images/no-image.png') }}'"
