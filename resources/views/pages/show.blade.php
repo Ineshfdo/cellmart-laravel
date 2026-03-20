@@ -10,7 +10,12 @@
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-0">
                 <!-- Product Image -->
                 <div class="p-8 lg:p-12 flex items-center justify-center bg-gray-100">
-                    <img src="{{ asset(str_replace('Images/', 'images/', ltrim($product->image, "/"))) }}" 
+                    @php
+                        $mainImgSrc = filter_var($product->image, FILTER_VALIDATE_URL)
+                            ? $product->image
+                            : asset(str_replace('Images/', 'images/', ltrim($product->image, '/')));
+                    @endphp
+                    <img src="{{ $mainImgSrc }}" 
                          alt="{{ $product->name }}" 
                          class="max-h-[500px] w-auto object-contain mix-blend-multiply hover:scale-105 transition-transform duration-500"
                          onerror="this.src='{{ asset('images/no-image.png') }}'">
@@ -113,7 +118,7 @@
                         <!-- Product Image -->
                         <div class="w-full h-64 bg-gray-50">
                             <img 
-                                src="{{ asset(str_replace('Images/', 'images/', ltrim($related->image, '/'))) }}" 
+                                src="{{ filter_var($related->image, FILTER_VALIDATE_URL) ? $related->image : asset(str_replace('Images/', 'images/', ltrim($related->image, '/'))) }}" 
                                 alt="{{ $related->name }}" 
                                 class="w-full h-full object-contain"
                                 onerror="this.src='{{ asset('images/no-image.png') }}'"

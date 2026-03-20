@@ -5,7 +5,7 @@ namespace App\Livewire\Admin\Products;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\File;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 
 class Create extends Component
 {
@@ -53,19 +53,11 @@ class Create extends Component
         $imagePath = null;
 
         if ($this->image_file) {
-            $uploadPath = public_path('images/products');
-            if (!File::exists($uploadPath)) {
-                File::makeDirectory($uploadPath, 0777, true);
-            }
-
-            $filename = time() . '_' . uniqid() . '.' . $this->image_file->getClientOriginalExtension();
-            
-            // Move file to public/images/products
-            // Note: Livewire stores temp files differently, so we use store logic or standard getRealPath move
-            // We'll use the same logic as in Edit.php which worked.
-            File::move($this->image_file->getRealPath(), $uploadPath . '/' . $filename);
-            
-            $imagePath = 'images/products/' . $filename;
+            // Upload to Cloudinary for persistent storage on Railway
+            $uploaded = Cloudinary::upload($this->image_file->getRealPath(), [
+                'folder' => 'cellmart/products',
+            ]);
+            $imagePath = $uploaded->getSecurePath();
         }
 
         DB::table('products')->insert([

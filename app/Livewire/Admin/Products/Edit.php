@@ -5,7 +5,7 @@ namespace App\Livewire\Admin\Products;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\File;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 
 class Edit extends Component
 {
@@ -78,23 +78,17 @@ class Edit extends Component
         ];
 
         if ($this->image_file) {
-            $uploadPath = public_path('images/products');
-            if (!File::exists($uploadPath)) {
-                File::makeDirectory($uploadPath, 0777, true);
-            }
+            // Upload to Cloudinary for persistent storage on Railway
+            $uploaded = Cloudinary::upload($this->image_file->getRealPath(), [
+                'folder' => 'cellmart/products',
+            ]);
+            $updateData['image'] = $uploaded->getSecurePath();
 
-            $filename = time() . '_' . uniqid() . '.' . $this->image_file->getClientOriginalExtension();
-            
-            // Move the file from Livewire temp directory to public
-            File::move($this->image_file->getRealPath(), $uploadPath . '/' . $filename);
-            
-            $updateData['image'] = 'images/products/' . $filename;
-
-            // Delete old image if it exists and is local
-            if ($this->currentImage && !filter_var($this->currentImage, FILTER_VALIDATE_URL)) {
+            // Delete old local image if it was stored locally (not a URL)
+            if ($this->currentImage && !str_starts_with($this->currentImage, 'http')) {
                 $oldImagePath = public_path($this->currentImage);
-                if (File::exists($oldImagePath)) {
-                    File::delete($oldImagePath);
+                if (file_exists($oldImagePath)) {
+                    @unlink($oldImagePath);
                 }
             }
         }
