@@ -7,7 +7,7 @@
 <section class="flex flex-col md:flex-row items-center gap-8 md:gap-12">
     <!-- Image -->
     <div class="w-full md:w-1/2">
-        <img src="{{ asset('Images/store11.webp') }}" alt="Contact Us" class="w-full rounded-3xl object-cover">
+        <img src="{{ asset('images/store11.webp') }}" alt="Contact Us" class="w-full rounded-3xl object-cover">
     </div>
 
     <!-- Info -->
@@ -112,7 +112,7 @@
 <section class="flex flex-col md:flex-row-reverse items-center gap-10 md:gap-12">
     <!-- Image -->
     <div class="w-full md:w-1/2">
-        <img src="{{ asset('Images/1.jpg') }}" alt="Our Mission" class="w-full rounded-3xl object-cover">
+        <img src="{{ asset('images/1.jpg') }}" alt="Our Mission" class="w-full rounded-3xl object-cover">
     </div>
 
     <!-- Text Content -->

@@ -9,7 +9,7 @@
 <section class="flex flex-col md:flex-row items-center gap-10 md:gap-12">
   <!-- Image -->
   <div class="w-full md:w-1/2">
-    <img src="{{ asset('Images/store12.jpg') }}" alt="CellMart Store" class="w-full rounded-3xl object-cover">
+    <img src="{{ asset('images/store12.jpg') }}" alt="CellMart Store" class="w-full rounded-3xl object-cover">
   </div>
 
   <!-- Text -->
@@ -31,7 +31,7 @@
 <section class="flex flex-col md:flex-row-reverse items-center gap-10 md:gap-12 mt-12">
   <!-- Image -->
   <div class="w-full md:w-1/2">
-    <img src="{{ asset('Images/allphones.webp') }}" alt="CellMart Products" class="w-full rounded-3xl object-cover">
+    <img src="{{ asset('images/allphones.webp') }}" alt="CellMart Products" class="w-full rounded-3xl object-cover">
   </div>
 
   <!-- Text -->
@@ -170,7 +170,7 @@
         <!-- Image -->
         <div class="w-full lg:w-1/2">
             <img 
-                src="{{ asset('Images/Trade-in go to the products page.webp') }}"
+                src="{{ asset('images/Trade-in go to the products page.webp') }}"
                 alt="Upgrade Your Device"
                 class="w-full rounded-xl object-cover"
             >

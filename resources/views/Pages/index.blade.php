@@ -178,7 +178,7 @@
 
     <!-- Image -->
     <div class="w-full max-w-4xl rounded-xl overflow-hidden hover: transition-all duration-300 transform hover:scale-[1.01]">
-        <img src="../Images/allphones.webp" 
+        <img src="../images/allphones.webp" 
              alt="Mobile Phones Collection"
              class="w-full h-64 md:h-[420px] object-cover">
     </div>
