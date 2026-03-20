@@ -19,7 +19,7 @@ class OrderController extends Controller
             ->orderBy('orders.created_at', 'desc')
             ->get();
 
-        return view('Admin.oders', compact('orders'));
+        return view('admin.oders', compact('orders'));
     }
 
     /**

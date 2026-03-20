@@ -17,7 +17,7 @@ class CustomerController extends Controller
             ->orderBy('created_at', 'desc')
             ->get();
 
-        return view('Admin.customers', compact('customers'));
+        return view('admin.customers', compact('customers'));
     }
     public function destroy($id)
     {
